@@ -23,15 +23,19 @@ public class EgyptianPyramidsApp {
   // main loop for app
   public void start() {
     Scanner scan = new Scanner(System.in);
-    Character command = '_';
+    boolean userQuit = false;
 
     // loop until user quits
-    while (command != 'q') {
+    for (; !userQuit; ) {
       printMenu();
       System.out.print("Enter a command: ");
-      command = menuGetCommand(scan);
+      Character command = menuGetCommand(scan);
 
       executeCommand(scan, command);
+
+      if (command == 'q') {
+        userQuit = true;
+      }
     }
   }
 
