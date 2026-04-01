@@ -12,6 +12,7 @@ public class EgyptianPyramidsApp {
   // other structures or additional structures can be used
   protected Pharaoh[] pharaohArray;
   protected Pyramid[] pyramidArray;
+  protected ArrayList<Integer> requestedPyramids;
 
   public static void main(String[] args) {
     // create and start the app
@@ -52,6 +53,8 @@ public class EgyptianPyramidsApp {
     // create and initialize the pyramid array
     initializePyramid(pyramidJSONArray);
 
+    // initialize the requested pyramids list
+    requestedPyramids = new ArrayList<Integer>();
   }
 
   // initialize the pharaoh array
@@ -190,6 +193,10 @@ public class EgyptianPyramidsApp {
       }
       System.out.printf("\tTotal contribution: %d gold coins\n", totalGold);
       printMenuLine();
+      // track this pyramid request
+      if (!requestedPyramids.contains(pyramidId)) {
+        requestedPyramids.add(pyramidId);
+      }
     } else {
       System.out.println("ERROR: Invalid pyramid id");
     }
@@ -211,6 +218,9 @@ public class EgyptianPyramidsApp {
       case '4':
         printPyramid(scan);
         break;
+      case '5':
+        printRequestedPyramids();
+        break;
       case 'q':
         System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
         break;
@@ -220,6 +230,20 @@ public class EgyptianPyramidsApp {
     }
 
     return success;
+  }
+
+  // print all previously requested pyramids
+  private void printRequestedPyramids() {
+    if (requestedPyramids.size() == 0) {
+      System.out.println("No pyramids have been requested yet.");
+      return;
+    }
+    for (int i = 0; i < requestedPyramids.size(); i++) {
+      int pyramidId = requestedPyramids.get(i);
+      printMenuLine();
+      System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[pyramidId].name, pyramidArray[pyramidId].id);
+      printMenuLine();
+    }
   }
 
   private static void printMenuCommand(Character command, String desc) {
