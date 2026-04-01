@@ -115,9 +115,9 @@ public class EgyptianPyramidsApp {
     }
 
   // get a integer from a json object, and parse it
-  private Integer toInteger(JSONObject o, String key) {
-    String s = o.get(key).toString();
-    Integer result = Integer.parseInt(s);
+  private Integer toInteger(JSONObject jsonObject, String key) {
+    String stringValue = jsonObject.get(key).toString();
+    Integer result = Integer.parseInt(stringValue);
     return result;
   }
 
