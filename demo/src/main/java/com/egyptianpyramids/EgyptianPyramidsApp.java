@@ -5,6 +5,8 @@ import org.json.simple.*;
 
 public class EgyptianPyramidsApp {
 
+  private static final String LINE = "--------------------------------------------------------------------------";
+
 
   // I've used two arrays here for O(1) reading of the pharaohs and pyramids.
   // other structures or additional structures can be used
@@ -155,9 +157,7 @@ public class EgyptianPyramidsApp {
   }
 
   private static void printMenuLine() {
-    System.out.println(
-      "--------------------------------------------------------------------------"
-    );
+    System.out.println(LINE);
   }
 
   // prints the menu
@@ -168,6 +168,10 @@ public class EgyptianPyramidsApp {
     System.out.printf("Command\t\tDescription\n");
     System.out.printf("-------\t\t---------------------------------------\n");
     printMenuCommand('1', "List all the pharoahs");
+    printMenuCommand('2', "Displays a specific Egyptian pharaoh");
+    printMenuCommand('3', "List all the pyramids");
+    printMenuCommand('4', "Displays a specific pyramid");
+    printMenuCommand('5', "Displays a list of requested pyramids.");
     printMenuCommand('q', "Quit");
     printMenuLine();
   }
