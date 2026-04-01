@@ -13,6 +13,7 @@ public class EgyptianPyramidsApp {
   protected Pharaoh[] pharaohArray;
   protected Pyramid[] pyramidArray;
   protected ArrayList<Integer> requestedPyramids;
+  protected Map<String, Pharaoh> pharaohHashMap;
 
   public static void main(String[] args) {
     // create and start the app
@@ -65,6 +66,7 @@ public class EgyptianPyramidsApp {
   private void initializePharaoh(JSONArray pharaohJSONArray) {
     // create array and hash map
     pharaohArray = new Pharaoh[pharaohJSONArray.size()];
+    pharaohHashMap = new HashMap<String, Pharaoh>();
 
     // initalize the array
     for (int i = 0; i < pharaohJSONArray.size(); i++) {
@@ -82,6 +84,7 @@ public class EgyptianPyramidsApp {
       // add a new pharoah to array
       Pharaoh p = new Pharaoh(id, name, begin, end, contribution, hieroglyphic);
       pharaohArray[i] = p;
+      pharaohHashMap.put(hieroglyphic, p);
     }
   }
 
@@ -143,12 +146,7 @@ public class EgyptianPyramidsApp {
 
   // find a pharaoh by hieroglyphic hash
   private Pharaoh findPharaohByHieroglyphic(String hieroglyphic) {
-    for (int i = 0; i < pharaohArray.length; i++) {
-      if (pharaohArray[i].hieroglyphic.equals(hieroglyphic)) {
-        return pharaohArray[i];
-      }
-    }
-    return null;
+    return pharaohHashMap.get(hieroglyphic);
   }
 
   // print all pyramids with contributors
