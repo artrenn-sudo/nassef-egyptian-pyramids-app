@@ -141,6 +141,17 @@ public class EgyptianPyramidsApp {
       case '1':
         printAllPharaoh();
         break;
+      case '2':
+        System.out.print("Enter a pharaoh id: ");
+        int pharaohId = Integer.parseInt(scan.nextLine());
+        if (pharaohId >= 0 && pharaohId < pharaohArray.length) {
+          printMenuLine();
+          pharaohArray[pharaohId].print();
+          printMenuLine();
+        } else {
+          System.out.println("ERROR: Invalid pharaoh id");
+        }
+        break;
       case 'q':
         System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
         break;
