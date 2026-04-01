@@ -26,7 +26,7 @@ public class EgyptianPyramidsApp {
     boolean userQuit = false;
 
     // loop until user quits
-    for (; !userQuit; ) {
+    while (!userQuit) {
       printMenu();
       System.out.print("Enter a command: ");
       Character command = menuGetCommand(scan);
