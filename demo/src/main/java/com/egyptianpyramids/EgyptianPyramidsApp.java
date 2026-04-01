@@ -160,6 +160,19 @@ public class EgyptianPyramidsApp {
     }
   }
 
+  // display a specific pharaoh by id
+  private void printPharaoh(Scanner scan) {
+    System.out.print("Enter a pharaoh id: ");
+    int pharaohId = Integer.parseInt(scan.nextLine());
+    if (pharaohId >= 0 && pharaohId < pharaohArray.length) {
+      printMenuLine();
+      pharaohArray[pharaohId].print();
+      printMenuLine();
+    } else {
+      System.out.println("ERROR: Invalid pharaoh id");
+    }
+  }
+
   private Boolean executeCommand(Scanner scan, Character command) {
     Boolean success = true;
 
@@ -168,15 +181,7 @@ public class EgyptianPyramidsApp {
         printAllPharaoh();
         break;
       case '2':
-        System.out.print("Enter a pharaoh id: ");
-        int pharaohId = Integer.parseInt(scan.nextLine());
-        if (pharaohId >= 0 && pharaohId < pharaohArray.length) {
-          printMenuLine();
-          pharaohArray[pharaohId].print();
-          printMenuLine();
-        } else {
-          System.out.println("ERROR: Invalid pharaoh id");
-        }
+        printPharaoh(scan);
         break;
       case '3':
         printAllPyramids();
