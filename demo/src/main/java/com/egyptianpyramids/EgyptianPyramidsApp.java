@@ -165,10 +165,15 @@ public class EgyptianPyramidsApp {
     }
   }
 
+  // get integer input from user
+  private int scanInteger(Scanner scan, String prompt) {
+    System.out.print(prompt);
+    return Integer.parseInt(scan.nextLine());
+  }
+
   // display a specific pharaoh by id
   private void printPharaoh(Scanner scan) {
-    System.out.print("Enter a pharaoh id: ");
-    int pharaohId = Integer.parseInt(scan.nextLine());
+    int pharaohId = scanInteger(scan, "Enter a pharaoh id: ");
     if (pharaohId >= 0 && pharaohId < pharaohArray.length) {
       printMenuLine();
       pharaohArray[pharaohId].print();
@@ -180,8 +185,7 @@ public class EgyptianPyramidsApp {
 
   // display a specific pyramid by id with contributor details
   private void printPyramid(Scanner scan) {
-    System.out.print("Enter a pyramid id: ");
-    int pyramidId = Integer.parseInt(scan.nextLine());
+    int pyramidId = scanInteger(scan, "Enter a pyramid id: ");
     if (pyramidId >= 0 && pyramidId < pyramidArray.length) {
       printMenuLine();
       System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[pyramidId].name, pyramidArray[pyramidId].id);
