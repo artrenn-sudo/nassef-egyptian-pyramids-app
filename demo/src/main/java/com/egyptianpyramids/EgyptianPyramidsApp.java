@@ -5,7 +5,7 @@ import org.json.simple.*;
 
 public class EgyptianPyramidsApp {
 
-  private static final String line = "--------------------------------------------------------------------------";
+  private static final String lineBreak = "--------------------------------------------------------------------------";
 
 
   // I've used two arrays here for O(1) reading of the pharaohs and pyramids.
@@ -62,6 +62,17 @@ public class EgyptianPyramidsApp {
     requestedPyramids = new ArrayList<Integer>();
   }
 
+  // parse a single pharaoh JSON object
+  private Pharaoh parsePharaoh(JSONObject jsonObject) {
+    Integer id = toInteger(jsonObject, "id");
+    String name = jsonObject.get("name").toString();
+    Integer begin = toInteger(jsonObject, "begin");
+    Integer end = toInteger(jsonObject, "end");
+    Integer contribution = toInteger(jsonObject, "contribution");
+    String hieroglyphic = jsonObject.get("hieroglyphic").toString();
+    return new Pharaoh(id, name, begin, end, contribution, hieroglyphic);
+  }
+
   // initialize the pharaoh array
   private void initializePharaoh(JSONArray pharaohJSONArray) {
     // create array and hash map
@@ -70,49 +81,37 @@ public class EgyptianPyramidsApp {
 
     // initalize the array
     for (int i = 0; i < pharaohJSONArray.size(); i++) {
-      // get the object
-      JSONObject o = (JSONObject) pharaohJSONArray.get(i);
-
-      // parse the json object
-      Integer id = toInteger(o, "id");
-      String name = o.get("name").toString();
-      Integer begin = toInteger(o, "begin");
-      Integer end = toInteger(o, "end");
-      Integer contribution = toInteger(o, "contribution");
-      String hieroglyphic = o.get("hieroglyphic").toString();
-
-      // add a new pharoah to array
-      Pharaoh p = new Pharaoh(id, name, begin, end, contribution, hieroglyphic);
+      JSONObject jsonObject = (JSONObject) pharaohJSONArray.get(i);
+      Pharaoh p = parsePharaoh(jsonObject);
       pharaohArray[i] = p;
-      pharaohHashMap.put(hieroglyphic, p);
+      pharaohHashMap.put(p.hieroglyphic, p);
     }
   }
 
-    // initialize the pyramid array
-    private void initializePyramid(JSONArray pyramidJSONArray) {
-      // create array and hash map
-      pyramidArray = new Pyramid[pyramidJSONArray.size()];
-  
-      // initalize the array
-      for (int i = 0; i < pyramidJSONArray.size(); i++) {
-        // get the object
-        JSONObject o = (JSONObject) pyramidJSONArray.get(i);
-  
-        // parse the json object
-        Integer id = toInteger(o, "id");
-        String name = o.get("name").toString();
-        JSONArray contributorsJSONArray = (JSONArray) o.get("contributors");
-        String[] contributors = new String[contributorsJSONArray.size()];
-        for (int j = 0; j < contributorsJSONArray.size(); j++) {
-          String c = contributorsJSONArray.get(j).toString();
-          contributors[j] = c;
-        }
-  
-        // add a new pyramid to array
-        Pyramid p = new Pyramid(id, name, contributors);
-        pyramidArray[i] = p;
-      }
+  // parse a single pyramid JSON object
+  private Pyramid parsePyramid(JSONObject jsonObject) {
+    Integer id = toInteger(jsonObject, "id");
+    String name = jsonObject.get("name").toString();
+    JSONArray contributorsJSONArray = (JSONArray) jsonObject.get("contributors");
+    String[] contributors = new String[contributorsJSONArray.size()];
+    for (int j = 0; j < contributorsJSONArray.size(); j++) {
+      contributors[j] = contributorsJSONArray.get(j).toString();
     }
+    return new Pyramid(id, name, contributors);
+  }
+
+  // initialize the pyramid array
+  private void initializePyramid(JSONArray pyramidJSONArray) {
+    // create array
+    pyramidArray = new Pyramid[pyramidJSONArray.size()];
+
+    // initalize the array
+    for (int i = 0; i < pyramidJSONArray.size(); i++) {
+      JSONObject jsonObject = (JSONObject) pyramidJSONArray.get(i);
+      Pyramid p = parsePyramid(jsonObject);
+      pyramidArray[i] = p;
+    }
+  }
 
   // get a integer from a json object, and parse it
   private Integer toInteger(JSONObject jsonObject, String key) {
@@ -189,22 +188,31 @@ public class EgyptianPyramidsApp {
     if (pyramidId >= 0 && pyramidId < pyramidArray.length) {
       printMenuLine();
       System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[pyramidId].name, pyramidArray[pyramidId].id);
-      int totalGold = 0;
-      for (int i = 0; i < pyramidArray[pyramidId].contributors.length; i++) {
-        Pharaoh p = findPharaohByHieroglyphic(pyramidArray[pyramidId].contributors[i]);
-        if (p != null) {
-          System.out.printf("\t%s: %d gold coins\n", p.name, p.contribution);
-          totalGold = totalGold + p.contribution;
-        }
-      }
-      System.out.printf("\tTotal contribution: %d gold coins\n", totalGold);
-      printMenuLine();
-      // track this pyramid request
-      if (!requestedPyramids.contains(pyramidId)) {
-        requestedPyramids.add(pyramidId);
-      }
+      printPyramidContributors(pyramidArray[pyramidId]);
+      trackRequestedPyramid(pyramidId);
     } else {
       System.out.println("ERROR: Invalid pyramid id");
+    }
+  }
+
+  // print pyramid contributors and total gold
+  private void printPyramidContributors(Pyramid pyramid) {
+    int totalGold = 0;
+    for (int i = 0; i < pyramid.contributors.length; i++) {
+      Pharaoh p = findPharaohByHieroglyphic(pyramid.contributors[i]);
+      if (p != null) {
+        System.out.printf("\t%s: %d gold coins\n", p.name, p.contribution);
+        totalGold = totalGold + p.contribution;
+      }
+    }
+    System.out.printf("\tTotal contribution: %d gold coins\n", totalGold);
+    printMenuLine();
+  }
+
+  // track this pyramid request
+  private void trackRequestedPyramid(int pyramidId) {
+    if (!requestedPyramids.contains(pyramidId)) {
+      requestedPyramids.add(pyramidId);
     }
   }
 
@@ -257,7 +265,7 @@ public class EgyptianPyramidsApp {
   }
 
   private static void printMenuLine() {
-    System.out.println(line);
+    System.out.println(lineBreak);
   }
 
   // prints the menu
