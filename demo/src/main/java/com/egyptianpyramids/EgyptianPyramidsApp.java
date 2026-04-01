@@ -134,6 +134,32 @@ public class EgyptianPyramidsApp {
     }
   }
 
+  // find a pharaoh by hieroglyphic hash
+  private Pharaoh findPharaohByHieroglyphic(String hieroglyphic) {
+    for (int i = 0; i < pharaohArray.length; i++) {
+      if (pharaohArray[i].hieroglyphic.equals(hieroglyphic)) {
+        return pharaohArray[i];
+      }
+    }
+    return null;
+  }
+
+  // print all pyramids with contributors
+  private void printAllPyramids() {
+    for (int i = 0; i < pyramidArray.length; i++) {
+      printMenuLine();
+      System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[i].name, pyramidArray[i].id);
+      System.out.printf("\tContributors:\n");
+      for (int j = 0; j < pyramidArray[i].contributors.length; j++) {
+        Pharaoh p = findPharaohByHieroglyphic(pyramidArray[i].contributors[j]);
+        if (p != null) {
+          System.out.printf("\t\t%s\n", p.name);
+        }
+      }
+      printMenuLine();
+    }
+  }
+
   private Boolean executeCommand(Scanner scan, Character command) {
     Boolean success = true;
 
@@ -151,6 +177,9 @@ public class EgyptianPyramidsApp {
         } else {
           System.out.println("ERROR: Invalid pharaoh id");
         }
+        break;
+      case '3':
+        printAllPyramids();
         break;
       case 'q':
         System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
