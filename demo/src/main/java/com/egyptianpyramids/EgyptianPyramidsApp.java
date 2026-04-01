@@ -5,7 +5,7 @@ import org.json.simple.*;
 
 public class EgyptianPyramidsApp {
 
-  private static final String LINE = "--------------------------------------------------------------------------";
+  private static final String line = "--------------------------------------------------------------------------";
 
 
   // I've used two arrays here for O(1) reading of the pharaohs and pyramids.
@@ -197,7 +197,7 @@ public class EgyptianPyramidsApp {
   }
 
   private static void printMenuLine() {
-    System.out.println(LINE);
+    System.out.println(line);
   }
 
   // prints the menu
