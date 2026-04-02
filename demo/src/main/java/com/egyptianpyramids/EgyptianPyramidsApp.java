@@ -5,7 +5,7 @@ import org.json.simple.*;
 
 public class EgyptianPyramidsApp {
 
-  private static final String lineBreak = "--------------------------------------------------------------------------";
+  private static final String LINE_BREAK = "--------------------------------------------------------------------------";
 
 
   // I've used two arrays here for O(1) reading of the pharaohs and pyramids.
@@ -265,7 +265,7 @@ public class EgyptianPyramidsApp {
   }
 
   private static void printMenuLine() {
-    System.out.println(lineBreak);
+    System.out.println(LINE_BREAK);
   }
 
   // prints the menu
