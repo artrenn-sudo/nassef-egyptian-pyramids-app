@@ -13,10 +13,14 @@ public class JSONFile {
 
     JSONArray data = null;
 
-    try (FileReader reader = new FileReader(fileName)) {
-      Object obj = jsonParser.parse(reader);
-
-      data = (JSONArray) obj;
+    try (InputStream is = JSONFile.class.getResourceAsStream(fileName)) {
+      if (is == null) {
+        throw new FileNotFoundException("Resource not found: " + fileName);
+      }
+      try (InputStreamReader reader = new InputStreamReader(is)) {
+        Object obj = jsonParser.parse(reader);
+        data = (JSONArray) obj;
+      }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
