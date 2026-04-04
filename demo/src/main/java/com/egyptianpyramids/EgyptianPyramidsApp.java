@@ -265,8 +265,15 @@ public class EgyptianPyramidsApp {
         System.out.println(lineBreak);
     }
 
+    // clear the console screen
+    public static void clearScreen() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
+
     // prints the menu
     public static void printMenu() {
+        clearScreen();
         printMenuLine();
         System.out.println("Nassef's Egyptian Pyramids App");
         printMenuLine();
