@@ -76,5 +76,16 @@
         </plugin>
       </plugins>
     </pluginManagement>
+    <plugins>
+      <!-- exec-maven-plugin: https://www.mojohaus.org/exec-maven-plugin/usage.html -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.6.3</version>
+        <configuration>
+          <mainClass>com.egyptianpyramids.EgyptianPyramidsApp</mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
