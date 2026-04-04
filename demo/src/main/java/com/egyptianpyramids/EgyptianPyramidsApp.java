@@ -25,10 +25,12 @@ public class EgyptianPyramidsApp {
         Scanner scan = new Scanner(System.in);
         boolean userQuit = false;
 
+        // show menu once at startup
+        printMenu();
+
         // loop until user quits
         while (!userQuit) {
-            printMenu();
-            System.out.print("Enter a command: ");
+            System.out.print("Enter a command or 'm' to show menu: ");
             Character command = menuGetCommand(scan);
 
             executeCommand(scan, command);
