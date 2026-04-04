@@ -234,6 +234,9 @@ public class EgyptianPyramidsApp {
             case '5':
                 printRequestedPyramids();
                 break;
+            case 'm':
+                printMenu();
+                break;
             case 'q':
                 System.out.println("Thank you for using Nassef's Egyptian Pyramid App!");
                 break;
@@ -286,6 +289,7 @@ public class EgyptianPyramidsApp {
         printMenuCommand('3', "List all the pyramids");
         printMenuCommand('4', "Displays a specific pyramid");
         printMenuCommand('5', "Displays a list of requested pyramids.");
+        printMenuCommand('m', "Show menu");
         printMenuCommand('q', "Quit");
         printMenuLine();
     }
