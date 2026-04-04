@@ -133,13 +133,22 @@ public class EgyptianPyramidsApp {
         return command;
     }
 
-    // print all pharaohs
-    private void printAllPharaoh() {
+    // print all pharaohs (with pagination)
+    private void printAllPharaoh(Scanner scan) {
+        int pageSize = 10; // number of pharaohs per page
         for (int i = 0; i < pharaohArray.length; i++) {
             printMenuLine();
-            pharaohArray[i].print();
-            printMenuLine();
+            pharaohArray[i].print(); // print pharaoh at index i, O(1) array access
+            // check if we should pause and ask user
+            if ((i + 1) % pageSize == 0 && i + 1 < pharaohArray.length) {
+                System.out.print("Press Enter for more or 'q' to stop: ");
+                String input = scan.nextLine().trim().toLowerCase();
+                if (input.equals("q")) {
+                    break; // exit the loop
+                }
+            }
         }
+        printMenuLine(); // final separator line
     }
 
     // find a pharaoh by hieroglyphic hash
@@ -220,7 +229,7 @@ public class EgyptianPyramidsApp {
 
         switch (command) {
             case '1':
-                printAllPharaoh();
+                printAllPharaoh(scan);
                 break;
             case '2':
                 printPharaoh(scan);
