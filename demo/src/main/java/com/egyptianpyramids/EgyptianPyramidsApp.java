@@ -175,7 +175,11 @@ public class EgyptianPyramidsApp {
     // get integer input from user
     private int scanInteger(Scanner scan, String prompt) {
         System.out.print(prompt);
-        return Integer.parseInt(scan.nextLine());
+        try {
+            return Integer.parseInt(scan.nextLine().trim());
+        } catch (NumberFormatException e) {
+            return -1; // Return an invalid ID to trigger the error handling logic in the calling methods
+        }
     }
 
     // display a specific pharaoh by id
