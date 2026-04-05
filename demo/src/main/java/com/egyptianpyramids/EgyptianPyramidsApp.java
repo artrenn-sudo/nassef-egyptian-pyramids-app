@@ -157,7 +157,8 @@ public class EgyptianPyramidsApp {
     }
 
     // print all pyramids with contributors
-    private void printAllPyramids() {
+    private void printAllPyramids(Scanner scan) {
+        int pageSize = 3; // number of pyramids per page
         for (int i = 0; i < pyramidArray.length; i++) {
             printMenuLine();
             System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[i].name, pyramidArray[i].id);
@@ -168,8 +169,16 @@ public class EgyptianPyramidsApp {
                     System.out.printf("\t\t%s\n", p.name);
                 }
             }
-            printMenuLine();
+            // check if we should pause and ask user
+            if ((i + 1) % pageSize == 0 && i + 1 < pyramidArray.length) {
+                System.out.print("Press Enter for more or 'q' to stop: ");
+                String input = scan.nextLine().trim().toLowerCase();
+                if (input.equals("q")) {
+                    break; // exit the loop
+                }
+            }
         }
+        printMenuLine(); // final separator line
     }
 
     // get integer input from user
@@ -239,7 +248,7 @@ public class EgyptianPyramidsApp {
                 printPharaoh(scan);
                 break;
             case '3':
-                printAllPyramids();
+                printAllPyramids(scan);
                 break;
             case '4':
                 printPyramid(scan);
