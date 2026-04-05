@@ -276,12 +276,12 @@ public class EgyptianPyramidsApp {
             System.out.println("No pyramids have been requested yet.");
             return;
         }
+        printMenuLine(); // top separator line
         for (int i = 0; i < requestedPyramids.size(); i++) {
             int pyramidId = requestedPyramids.get(i);
-            printMenuLine();
-            System.out.printf("Pyramid %s (id: %d)\n", pyramidArray[pyramidId].name, pyramidArray[pyramidId].id);
-            printMenuLine();
+            System.out.printf("%d. Pyramid %s (id: %d)\n", i + 1, pyramidArray[pyramidId].name, pyramidArray[pyramidId].id);
         }
+        printMenuLine(); // bottom separator line
     }
 
     private static void printMenuCommand(Character command, String desc) {
