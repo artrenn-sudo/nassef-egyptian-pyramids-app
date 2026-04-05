@@ -135,7 +135,7 @@ public class EgyptianPyramidsApp {
 
     // print all pharaohs (with pagination)
     private void printAllPharaoh(Scanner scan) {
-        int pageSize = 10; // number of pharaohs per page
+        int pageSize = 5; // number of pharaohs per page
         for (int i = 0; i < pharaohArray.length; i++) {
             printMenuLine();
             pharaohArray[i].print(); // print pharaoh at index i, O(1) array access
